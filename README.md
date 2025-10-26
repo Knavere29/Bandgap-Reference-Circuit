@@ -49,10 +49,31 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 
 ## Simulations
 ### DC: Temperature Sweep 
+![](bgr/simulationPlots/bgr_temp_sweep.svg)
+```
+--------------------------------------------------------------------------------
+Index   tempcoff        
+--------------------------------------------------------------------------------
+0	6.856214e+00	
+1	2.631005e+01	
+2	5.119615e+01	
+```
 ### DC: Supply Sweep
+![](bgr/simulationPlots/bgr_supply_sweep.svg)
 ### NOISE: Noise Analysis
+![](bgr/simulationPlots/bgr_noise_analysis.svg)
+```
+--------------------------------------------------------------------------------
+Index   outreftotalnois inreftotalnoise 
+--------------------------------------------------------------------------------
+0	4.858997e-06	8.082027e-05	
+1	7.119791e-06	1.215717e-04	
+2	1.057774e-05	1.855346e-04	
+```
 ### TRAN: Transient Analysis
+![](bgr/simulationPlots/bgr_transient_analysis.svg)
 ### MC: Monte-Carlo Analysis
+![](bgr/simulationPlots/bgr_montecarlo_analysis_plot.svg)
 
 ## Simulation Instructions
 Before proceeding with simulation instructions, kindly install all the [tools used](#tools-used). Also check the $PDK_ROOT and $PDK path variable. If not set, do so.
