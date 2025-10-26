@@ -37,7 +37,9 @@ Download Link: https://octave.org/download
 
 ## BGR Introduction
 Bandgap regerence circuit (BGR) is a voltage reference circuit which generates constant voltage, independent of temperature, supply and process variation. This voltage composed of complementary to absolute temperature (CTAT) and proportional to  absolute temperature (PTAT) voltage and/or current components. Correct proportion of this components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> in the BJT current equation produces CTAT and PTAT voltages respectively.</br>
-<math display="block"> <mrow> <msub><mi>V</mi><mn>BG</mn></msub><mo>=</mo><msub><mi>V</mi><mn>BE</mn></msub> <mo>+</mo> M<msub><mi>V</mi><mn>T</mn></msub> </mrow> </math> 
+$$
+V_BG = V_BE + MV_T
+$$
 ![](img/bgr_plot.png)
 
 ## Circuit Schematic in eSim
@@ -107,7 +109,7 @@ Nagaraj Venkatesh Reddy </br>
 Contact: nagarajvreddy29@gmail.com
 
 ## Acknowledgement
-1. eSim Team, FOSSEE,IIT Bombay
+I would like to express my sincere gratitude to the organizers of the eSim Marathon, eSim team and the IHP team for providing this opportunity and support.
 
 ## References
 1. J. M. Loché, A. Abarca, T. Darós, R. Wrege, C. Marques and J. Piteira, "A Low-Noise and Small-Area 0.9 V Bandgap Reference in Standard 180 nm CMOS Process for Neural Applications," 2025 IEEE 16th Latin America Symposium on Circuits and Systems (LASCAS), Bento Gonçalves, Brazil, 2025, pp. 1-5, doi: 10.1109/LASCAS64004.2025.10966327.
