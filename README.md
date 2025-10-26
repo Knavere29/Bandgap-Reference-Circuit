@@ -44,6 +44,23 @@ Equation: $V_{BG} = V_{BE} + MV_T$
 ![](img/bgr_kicad_schematic.png)
 
 ## Circuit Calculations
+### Component Description:
+| Sl No. | Name          | Description           | Values         |
+| :---:  | :---          | :---                  | :---           |
+| 1      | `XM1`         | Startup Circuit PMOS  | W=1u, L=5u     |
+| 2      | `XM2`         | Startup Circuit NMOS  | W=10u, L=10u   |
+| 3      | `XM3`         | Startup Circuit PMOS  | W=4u, L=1u     |
+| 4      | `XM4`,`XM5`   | Current Mirror PMOS   | W=9.5u, L=1.5u |
+| 5      | `XQ1`to`XQ9`  | NPN HBT               | Nx=1           |
+| 6      | `XR1`         | 5.3k Resistor         | W=0.5u, L=1.7u |
+| 7      | `XR2`         | 15.5k Resistor        | W=0.5u, L=5.1u |
+| 8      | `XR3`         | 2k Resistor           | W=0.5u, L=0.6u |
+
+
+### Step 1: PMOS Current Mirror
+For Calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
+$$\frac{W}/{L}≈\frac{2I_D}{μ_pC_oxV_{OV}^2}​​≈6.34$$
+Choosing L=1.5u results in W=9.5
 
 ## BGR Netlist
 The netlist `bgr.cir.out` contains the BGR circuit core without stimulus and library in the sub-circuit format. The stimulus, library and result generation are included in respective analysis file.
@@ -78,7 +95,7 @@ xr3 net2 vbg gnd rhigh w=0.5u l={resL} m=1
 
 ## Simulations
 ### DC: Temperature Sweep 
-Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `R3` reistor value 2k at 1.3V supply.
+Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `XR3` reistor value 2k at 1.3V supply.
 ![](bgr/simulationPlots/bgr_temp_sweep.svg)
 The `R3` reistor values 2k, 30k and 60k are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
 ```
@@ -90,11 +107,11 @@ Index   tempcoff
 2	5.119615e+01	
 ```
 ### DC: Supply Sweep
-A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `R3` reistor value 2k.
+A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `XR3` reistor value 2k.
 ![](bgr/simulationPlots/bgr_supply_sweep.svg)
 ### NOISE: Noise Analysis
 ![](bgr/simulationPlots/bgr_noise_analysis.svg)
-The parameter sweep of `R3` reistor with values 2k, 30k and 60k are used in noise analysis. Below are the resultant input and output refered total noise voltage respectively.
+The parameter sweep of `XR3` reistor with values 2k, 30k and 60k are used in noise analysis. Below are the resultant input and output refered total noise voltage respectively.
 ```
 --------------------------------------------------------------------------------
 Index   outreftotalnois inreftotalnoise 
@@ -106,7 +123,7 @@ Index   outreftotalnois inreftotalnoise
 ### TRAN: Transient Analysis
 ![](bgr/simulationPlots/bgr_transient_analysis.svg)
 ### MC: Monte-Carlo Analysis
-Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `R3` reistor value 2k at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
+Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `XR3` reistor value 2k at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
 ![](bgr/simulationPlots/bgr_montecarlo_analysis_plot.svg)
 
 ## Simulation Instructions
