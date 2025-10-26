@@ -107,10 +107,7 @@ Nagaraj Venkatesh Reddy </br>
 Contact: nagarajvreddy29@gmail.com
 
 ## Acknowledgement
-1. FOSSEE,IIT Bombay
-2. Steve Hoover, Founder, Redwood EDA
-3. Kunal Ghosh, Co-Founder, VSD Corp. Pvt. Ltd. - kunalghosh@gmail.com
-4. Sumanto Kar, eSim Team, FOSSEE
+1. eSim Team, FOSSEE,IIT Bombay
 
 ## References
 1. J. M. Loché, A. Abarca, T. Darós, R. Wrege, C. Marques and J. Piteira, "A Low-Noise and Small-Area 0.9 V Bandgap Reference in Standard 180 nm CMOS Process for Neural Applications," 2025 IEEE 16th Latin America Symposium on Circuits and Systems (LASCAS), Bento Gonçalves, Brazil, 2025, pp. 1-5, doi: 10.1109/LASCAS64004.2025.10966327.
