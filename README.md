@@ -39,17 +39,48 @@ Download Link: https://octave.org/download
 Bandgap regerence circuit (BGR) is a voltage reference circuit which generates constant voltage, independent of temperature, supply and process variation. This voltage composed of complementary to absolute temperature (CTAT) and proportional to  absolute temperature (PTAT) voltage and/or current components. Correct proportion of this components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> in the BJT current equation produces CTAT and PTAT voltages respectively.</br>
 Equation: $V_{BG} = V_{BE} + MV_T$
 ![](img/bgr_plot.png)
-
+``Image Source: Reference 2``
 ## Circuit Schematic in eSim
 ![](img/bgr_kicad_schematic.png)
 
 ## Circuit Calculations
 
-## Netlist
+## BGR Netlist
+The netlist `bgr.cir.out` contains the BGR circuit core without stimulus and library in the sub-circuit format. The stimulus, library and result generation are included in respective analysis file.
+```
+.subckt bgr vdd vbg gnd
+
+*MOS subcircuit drain gate source bulk
+xm1 net1 gnd vdd vdd sg13_lv_pmos w=1u l=5u ng=1 m=1
+xm2 gnd net1 gnd gnd sg13_lv_nmos w=10u l=10u ng=1 m=1
+xm3 net2 net1 vdd vdd sg13_lv_pmos w=4u l=1u ng=1 m=1
+xm4 net2 net3 vdd vdd sg13_lv_pmos w=9.5u l=1.5u ng=1 m=1
+xm5 net3 net3 vdd vdd sg13_lv_pmos w=9.5u l=1.5u ng=1 m=1
+
+*NPN HBT subcircuit collector base emitter subc
+xq1 net2 net2 net4 gnd npn13G2 Nx=1
+xq2 net3 vbg net5 gnd npn13G2 Nx=1
+xq3 net3 vbg net5 gnd npn13G2 Nx=1
+xq4 net3 vbg net5 gnd npn13G2 Nx=1
+xq5 net3 vbg net5 gnd npn13G2 Nx=1
+xq6 net3 vbg net5 gnd npn13G2 Nx=1
+xq7 net3 vbg net5 gnd npn13G2 Nx=1
+xq8 net3 vbg net5 gnd npn13G2 Nx=1
+xq9 net3 vbg net5 gnd npn13G2 Nx=1
+
+*Resistor subcircuit P1 P2 bulk
+xr1 net5 net4 gnd rhigh w=0.5u l=1.7u m=1
+xr2 net4 gnd gnd rhigh w=0.5u l=5.1u m=1
+xr3 net2 vbg gnd rhigh w=0.5u l={resL} m=1
+
+.ends
+```
 
 ## Simulations
 ### DC: Temperature Sweep 
+Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `R3` reistor value 2k at 1.3V supply.
 ![](bgr/simulationPlots/bgr_temp_sweep.svg)
+The `R3` reistor values 2k, 30k and 60k are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
 ```
 --------------------------------------------------------------------------------
 Index   tempcoff        
@@ -59,9 +90,11 @@ Index   tempcoff
 2	5.119615e+01	
 ```
 ### DC: Supply Sweep
+A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `R3` reistor value 2k.
 ![](bgr/simulationPlots/bgr_supply_sweep.svg)
 ### NOISE: Noise Analysis
 ![](bgr/simulationPlots/bgr_noise_analysis.svg)
+The parameter sweep of `R3` reistor with values 2k, 30k and 60k are used in noise analysis. Below are the resultant input and output refered total noise voltage respectively.
 ```
 --------------------------------------------------------------------------------
 Index   outreftotalnois inreftotalnoise 
@@ -73,10 +106,11 @@ Index   outreftotalnois inreftotalnoise
 ### TRAN: Transient Analysis
 ![](bgr/simulationPlots/bgr_transient_analysis.svg)
 ### MC: Monte-Carlo Analysis
+Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `R3` reistor value 2k at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
 ![](bgr/simulationPlots/bgr_montecarlo_analysis_plot.svg)
 
 ## Simulation Instructions
-Before proceeding with simulation instructions, kindly install all the [tools used](#tools-used). Also check the $PDK_ROOT and $PDK path variable. If not set, do so.
+Before proceeding with simulation instructions, kindly install all the [tools used](#tools-used). Also check the `$PDK_ROOT` and `$PDK` path variable. If not set, do so.
 ```
 echo $PDK_ROOT
 echo $PDK
