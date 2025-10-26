@@ -36,8 +36,8 @@ GNU Octave is a scientific programming language for scientific computing and num
 Download Link: https://octave.org/download 
 
 ## BGR Introduction
-Bandgap regerence circuit (BGR) is a voltage reference circuit which generates constant voltage, independent of temperature, supply and process variation. This voltage composed of complementary to absolute temperature (CTAT) and proportional to  absolute temperature (PTAT) voltage and/or current components. Correct proportion of this components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> in the BJT current equation produces CTAT and PTAT voltages respectively.
-$$V_{BG} = V_{BE} + MV_T$$
+Bandgap regerence circuit (BGR) is a voltage reference circuit which generates constant voltage, independent of temperature, supply and process variation. This voltage composed of complementary to absolute temperature (CTAT) and proportional to  absolute temperature (PTAT) voltage and/or current components. Correct proportion of this components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> in the BJT current equation produces CTAT and PTAT voltages respectively.</br>
+Equation: $$\begin{align*} V_{BG} = V_{BE} + MV_T \end{align} $$
 ![](img/bgr_plot.png)
 
 ## Circuit Schematic in eSim
