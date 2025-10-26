@@ -2,21 +2,21 @@
 .model __M5 PMOS level=14
 .model __M2 NMOS level=14
 .model __M1 PMOS level=14
-.model __M3 PMOS level=14
 .model __M4 PMOS level=14
-R1 Net-_M3-D_ VBG eSim_R
+.model __M3 PMOS level=14
+R3 Net-_M3-D_ VBG eSim_R
 Q3 __Q3
 M5 Net-_M4-G_ Net-_M4-G_ VDD VDD __M5
 Q2 __Q2
 Q4 __Q4
 Q5 __Q5
-R3 Net-_Q1-E_ eSim_GND eSim_R
-R2 Net-_Q2-E_ Net-_Q1-E_ eSim_R
+R2 Net-_Q1-E_ eSim_GND eSim_R
+R1 Net-_Q2-E_ Net-_Q1-E_ eSim_R
 M2 eSim_GND Net-_M1-D_ eSim_GND eSim_GND __M2
 M1 Net-_M1-D_ eSim_GND VDD VDD __M1
-M3 Net-_M3-D_ Net-_M1-D_ VDD VDD __M3
 M4 Net-_M3-D_ Net-_M4-G_ VDD VDD __M4
 Q1 __Q1
+M3 Net-_M3-D_ Net-_M1-D_ VDD VDD __M3
 Q8 __Q8
 Q7 __Q7
 Q9 __Q9
