@@ -37,7 +37,7 @@ Download Link: https://octave.org/download
 
 ## BGR Introduction
 Bandgap regerence circuit (BGR) is a voltage reference circuit which generates constant voltage, independent of temperature, supply and process variation. This voltage composed of complementary to absolute temperature (CTAT) and proportional to  absolute temperature (PTAT) voltage and/or current components. Correct proportion of this components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> in the BJT current equation produces CTAT and PTAT voltages respectively.</br>
-Equation: $V_{BG} = V_{BE} + MV_T$
+`Equation1:` $V_{BG} = V_{BE} + MV_T$
 ![](img/bgr_plot.png)
 ``Image Source: Reference 2``
 ## Circuit Schematic in eSim
@@ -59,8 +59,8 @@ Equation: $V_{BG} = V_{BE} + MV_T$
 
 ### Step 1: PMOS Current Mirror
 For Calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
-$$\frac{W}/{L}≈\frac{2I_D}{μ_pC_oxV_{OV}^2}​​≈6.34$$
-Choosing L=1.5u results in W=9.5
+`Equation2:` $\frac{W}{L}≈\frac{2I_D}{μ_pC_oxV_{OV}^2}​​≈6.34$</br>
+Choosing L=1.5u results in W=9.5u
 
 ## BGR Netlist
 The netlist `bgr.cir.out` contains the BGR circuit core without stimulus and library in the sub-circuit format. The stimulus, library and result generation are included in respective analysis file.
