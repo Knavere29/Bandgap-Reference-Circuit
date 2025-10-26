@@ -1,0 +1,54 @@
+.title BGR Noise Analysis
+
+*Libraries used
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib hbt_typ
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.include ./bgr.cir.out
+
+*Parameters 
+.param resL=0.6u
+
+*Ciruit under test
+xbgr1 vdd vbg gnd bgr
+
+*Supply 
+V1 vdd gnd DC 1.3 AC 1 sin(0 2.5 10k)
+
+*Temperature
+.temp 27
+
+*Analysis type
+.noise v(vbg) V1 dec 100 0.1 10k
+
+*Control statements
+.control
+let loops = 3
+let index = 0
+set noiseplot = ' '
+let outreftotalnoise = vector(loops)
+let inreftotalnoise = vector(loops)
+
+foreach reslen 0.6u 10u 20u
+alterparam resL = {$reslen}
+reset
+run
+set noiseplot = ( $noiseplot onoise_spectrum )
+set noiseplot = ( $noiseplot inoise_spectrum )
+let outreftotalnoise[index] = onoise_total
+let inreftotalnoise[index] = inoise_total
+let index = index + 1
+end
+
+setplot noise1
+cd simulationPlots
+set hcopydevtype=svg
+set color0=white
+set color1=grey
+hardcopy bgr_noise_analysis.svg $noiseplot ylabel 'Noise Voltage Spectral Density' xlabel 'Frequency'
+print outreftotalnoise inreftotalnoise
+print outreftotalnoise inreftotalnoise > bgr_noise_analysis_total.txt
+destroy all
+quit
+.endc
+.end

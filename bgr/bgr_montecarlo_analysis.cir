@@ -1,0 +1,46 @@
+.title BGR Montecarlo Analysis
+
+*Libraries used
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib hbt_typ_stat
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt_stat
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ_stat
+.include ./bgr.cir.out
+
+*Parameters 
+.param resL=0.6u
+.param mc_ok=1.0
+.param num_sigmas=1.0
+
+*Ciruit under test
+xbgr1 vdd vbg gnd bgr
+
+*Supply 
+V1 vdd gnd DC 1.3
+
+*Temperature
+.temp 27
+
+*Analysis type
+.op
+
+*Control statements
+.control
+let mc_runs = 200
+let run = 0
+let vbgr=vector(mc_runs)
+
+***************** LOOP *********************
+dowhile run < mc_runs
+run
+let vbgr[run]=v(vbg)
+let run=run+1 
+print v(vbg)
+reset
+end
+***************** LOOP *********************
+set wr_singlescale
+wrdata bgr_montecarlo_plot.txt $&vbgr
+destroy all
+quit
+.endc
+.end

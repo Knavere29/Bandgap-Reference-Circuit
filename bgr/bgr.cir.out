@@ -1,0 +1,26 @@
+.subckt bgr vdd vbg gnd
+
+*MOS subcircuit drain gate source bulk
+xm1 net1 gnd vdd vdd sg13_lv_pmos w=1u l=5u ng=1 m=1
+xm2 gnd net1 gnd gnd sg13_lv_nmos w=10u l=10u ng=1 m=1
+xm3 net2 net1 vdd vdd sg13_lv_pmos w=4u l=1u ng=1 m=1
+xm4 net2 net3 vdd vdd sg13_lv_pmos w=9.5u l=1.5u ng=1 m=1
+xm5 net3 net3 vdd vdd sg13_lv_pmos w=9.5u l=1.5u ng=1 m=1
+
+*NPN HBT subcircuit collector base emitter subc
+xq1 net2 net2 net4 gnd npn13G2 Nx=1
+xq2 net3 vbg net5 gnd npn13G2 Nx=1
+xq3 net3 vbg net5 gnd npn13G2 Nx=1
+xq4 net3 vbg net5 gnd npn13G2 Nx=1
+xq5 net3 vbg net5 gnd npn13G2 Nx=1
+xq6 net3 vbg net5 gnd npn13G2 Nx=1
+xq7 net3 vbg net5 gnd npn13G2 Nx=1
+xq8 net3 vbg net5 gnd npn13G2 Nx=1
+xq9 net3 vbg net5 gnd npn13G2 Nx=1
+
+*Resistor subcircuit P1 P2 bulk
+xr1 net5 net4 gnd rhigh w=0.5u l=1.7u m=1
+xr2 net4 gnd gnd rhigh w=0.5u l=5.1u m=1
+xr3 net2 vbg gnd rhigh w=0.5u l={resL} m=1
+
+.ends

@@ -1,0 +1,54 @@
+.title BGR Temperature Sweep
+
+*Libraries used
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib hbt_typ
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib $PDK_ROOT\/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.include ./bgr.cir.out
+
+*Parameters 
+.param resL=0.6u
+
+*Ciruit under test
+xbgr1 vdd vbg gnd bgr
+
+*Supply 1.3
+V1 vdd gnd 1.3
+
+*Temperature
+.temp 27
+
+*Analysis type
+.dc temp -20 85 0.5
+
+*Control statements
+.control
+let index = 0
+let loops = 3
+let tempdiff = 105; Tmax - Tmin
+let tempcoff = vector(loops)
+
+foreach reslen 0.6u 10u 20u
+alterparam resL = {$reslen}
+echo sim no $&index and resL=$reslen
+reset
+run
+meas dc vbgrmax MAX v(vbg)
+meas dc vbgrmin MIN v(vbg)
+meas dc vbgravg AVG v(vbg) from=-20 to=85
+let tempcoff[index] = ((vbgrmax - vbgrmin) / (vbgravg * tempdiff)) * 1Meg
+let index = index + 1
+end
+
+cd simulationPlots
+set hcopydevtype=svg
+set color0=white
+set color1=grey
+hardcopy bgr_temp_sweep.svg dc1.v(vbg) dc2.v(vbg) dc3.v(vbg) title 'BGR Temperature Sweep' ylabel 'Bandgap Reference Voltage' xlabel 'Temperature Sweep'
+print tempcoff
+print tempcoff > bgr_temp_sweep_tempcoff.txt
+destroy all
+quit
+.endc
+.end
+
