@@ -59,7 +59,7 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 
 ### Step 1: PMOS Current Mirror
 For Calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
-`Equation2:` $\frac{W}{L}≈\frac{2 I_D}{μ_p C_ox V_{ov}^2}​​≈6.34$</br>
+`Equation2:` $\frac{W}{L}≈\frac{2 I_d}{μ_p C_{ox} V_{ov}^2}​​≈6.34$</br>
 Choosing L=1.5u results in W=9.5u
 
 ### Step 2: Startup Circuit
@@ -69,7 +69,7 @@ The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` are WIDE a
 IHP's npn13G2 with no of emitter Nx=1 are used for components `XQ1` to `XQ9`. 8 HBT's are choosen `XQ2` to `XQ9` for better matching and common centroid layout.
 
 ### Step 4: Resistor Value 
-`Equation 3:` $V_T ln(8) = I_E /left(R_1 + /frac{R_3}/{β+1} /right)$</br>
+`Equation 3:` $V_T ln(8) = I_E (R_1 + /frac{R_3}/{β+1})$</br>
 Ignore R<sub>3</sub> component in the equation 3 results in R<sub>1</sub>=5.3kΩ.</br>
 </br>
 `Equation 4:` $V_{BG} = V_{BE1} + I_E (R_1 + 2R_2)$</br>
@@ -110,9 +110,9 @@ xr3 net2 vbg gnd rhigh w=0.5u l={resL} m=1
 
 ## Simulations
 ### DC: Temperature Sweep 
-Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `XR3` reistor value 2k at 1.3V supply.
+Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `XR3` reistor value 2kΩ at 1.3V supply.
 ![](bgr/simulationPlots/bgr_temp_sweep.svg)
-The `R3` reistor values 2k, 30k and 60k are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
+The `R3` reistor values 2kΩ, 30kΩ and 60kΩ are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
 ```
 --------------------------------------------------------------------------------
 Index   tempcoff        
@@ -123,12 +123,12 @@ Index   tempcoff
 ```
 
 ### DC: Supply Sweep
-A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `XR3` reistor value 2k.
+A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `XR3` reistor value 2kΩ.
 ![](bgr/simulationPlots/bgr_supply_sweep.svg)
 
 ### NOISE: Noise Analysis
 ![](bgr/simulationPlots/bgr_noise_analysis.svg)
-The parameter sweep of `XR3` reistor with values 2k, 30k and 60k are used in noise analysis. Below are the resultant input and output refered total noise voltage respectively.
+The parameter sweep of `XR3` reistor with values 2kΩ, 30kΩ and 60kΩ are used in noise analysis. Below are the resultant input and output refered total noise voltage (uV) respectively.
 ```
 --------------------------------------------------------------------------------
 Index   outreftotalnois inreftotalnoise 
@@ -142,7 +142,7 @@ Index   outreftotalnois inreftotalnoise
 ![](bgr/simulationPlots/bgr_transient_analysis.svg)
 
 ### MC: Monte-Carlo Analysis
-Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `XR3` reistor value 2k at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
+Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `XR3` reistor value 2kΩ at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
 ![](bgr/simulationPlots/bgr_montecarlo_analysis_plot.svg)
 
 ## Simulation Instructions
@@ -166,7 +166,7 @@ Run allSimRun.sh script in terminal. The script runs all the simulation one by o
 ```
 
 ### STEP3:
-Change directory to simulationPlots to see the results.
+Change directory to simulationPlots to see the result files (simulation plots).
 ```
 cd simulationPlots
 ```
@@ -179,16 +179,26 @@ cd simulationPlots
 | 4      | TRANS Analysis  | `ngspice bgr_transient_analysis.cir` | bgr_transient_analysis.svg                             |
 | 5      | MC Analysis     | `octave bgr_montecarlo_plot.m`       |  bgr_montecarlo_analysis_plot.svg                      |
 
-#### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#simulation-instructions-step2)
+#### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#step2:)
+
+## Reference Comparision
+| Name                      | Reference      | This design    |
+| :---                      | :---:          | :---:          |
+| `Supply Voltage [V]`      | 1.1 - 2.5      | 1.3 - 2.5      |
+| `Process`                 | TSMC 180nm     | IHP 130nm      |
+| `Reference Voltage [V]`   | 0.9009         | 1.02           |
+| `Temperature Range [ºC]`  | -20ºC to +85ºC | -20ºC to +85ºC |
+| `TC [ppm//ºC]`            | 55.23          | 6.85           |
 
 ## Conclusion
+The design of 1V BGR circuit using SiGe-HBT from IHP 130nm BiCMOS open source PDK operates with temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at 1.3V supply for `XR3` resistor value 2kΩ. Montecarlo analysis of  process variation of 200 samples results in `mean = 1.02V` and `standard deviation = 2mV`.
 
 ## Author
 Nagaraj Venkatesh Reddy </br>
 Contact: nagarajvreddy29@gmail.com
 
 ## Acknowledgement
-I would like to express my sincere gratitude to the organizers of the eSim Marathon, eSim team and the IHP team for providing this opportunity and support.
+I would like to express my gratitude to the organizers of the eSim Marathon, eSim team and the IHP team for providing this opportunity and support.
 
 ## References
 1. J. M. Loché, A. Abarca, T. Darós, R. Wrege, C. Marques and J. Piteira, "A Low-Noise and Small-Area 0.9 V Bandgap Reference in Standard 180 nm CMOS Process for Neural Applications," 2025 IEEE 16th Latin America Symposium on Circuits and Systems (LASCAS), Bento Gonçalves, Brazil, 2025, pp. 1-5, doi: 10.1109/LASCAS64004.2025.10966327.
