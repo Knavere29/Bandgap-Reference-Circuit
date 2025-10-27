@@ -69,7 +69,7 @@ The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` are WIDE a
 IHP's npn13G2 with no of emitter Nx=1 are used for components `XQ1` to `XQ9`. 8 HBT's are choosen `XQ2` to `XQ9` for better matching and common centroid layout.
 
 ### Step 4: Resistor Value 
-`Equation 3:` $V_T ln(8) = I_E /left(R_1 + /frac{R_3/{β+1} /right)$</br>
+`Equation 3:` $V_T ln(8) = I_E /left(R_1 + /frac{R_3}/{β+1} /right)$</br>
 Ignore R<sub>3</sub> component in the equation 3 results in R<sub>1</sub>=5.3kΩ.</br>
 </br>
 `Equation 4:` $V_{BG} = V_{BE1} + I_E (R_1 + 2R_2)$</br>
@@ -117,9 +117,9 @@ The `R3` reistor values 2k, 30k and 60k are used in the temperature sweep. Below
 --------------------------------------------------------------------------------
 Index   tempcoff        
 --------------------------------------------------------------------------------
-0	6.856214e+00	
-1	2.631005e+01	
-2	5.119615e+01	
+0       6.856214e+00	
+1       2.631005e+01	
+2       5.119615e+01	
 ```
 
 ### DC: Supply Sweep
@@ -133,9 +133,9 @@ The parameter sweep of `XR3` reistor with values 2k, 30k and 60k are used in noi
 --------------------------------------------------------------------------------
 Index   outreftotalnois inreftotalnoise 
 --------------------------------------------------------------------------------
-0	4.858997e-06	8.082027e-05	
-1	7.119791e-06	1.215717e-04	
-2	1.057774e-05	1.855346e-04	
+0       4.858997e-06	8.082027e-05	
+1       7.119791e-06	1.215717e-04	
+2       1.057774e-05	1.855346e-04	
 ```
 
 ### TRAN: Transient Analysis
@@ -170,6 +170,16 @@ Change directory to simulationPlots to see the results.
 ```
 cd simulationPlots
 ```
+### Simulation Results:
+| Sl No. | Analysis Type   | Command                              | Result files                                           |
+| :---:  | :---            | :---                                 | :---                                                   |
+| 1      | DC Temp Sweep   | `ngspice bgr_temp_sweep.cir`         | bgr_temp_sweep.svg, bgr_temp_sweep_tempcoff.txt        |
+| 2      | DC Supply Sweep | `ngspice bgr_supply_sweep.cir`       | bgr_supply_sweep.svg                                   |
+| 3      | NOISE Analysis  | `ngspice bgr_noise_analysis.cir`     | bgr_noise_analysis.svg, bgr_noise_analysis_total.txt   |
+| 4      | TRANS Analysis  | `ngspice bgr_transient_analysis.cir` | bgr_transient_analysis.svg                             |
+| 5      | MC Analysis     | `octave bgr_montecarlo_plot.m`       |  bgr_montecarlo_analysis_plot.svg                      |
+
+#### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#simulation-instructions-step2)
 
 ## Conclusion
 
