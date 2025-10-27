@@ -75,7 +75,8 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 
 ### Step 1: PMOS Current Mirror
 For Calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
-`Equation2:` $\frac{W}{L}≈\frac{2 I_d}{μ_p C_{ox} V_{ov}^2}​​≈6.34$</br>
+`Equation2:` 
+$$\frac{W}{L}≈\frac{2 I_d}{μ_p C_{ox} V_{ov}^2}​​≈6.34$$
 Choosing L=1.5u results in W=9.5u
 
 ### Step 2: Startup Circuit
