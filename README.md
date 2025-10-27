@@ -53,14 +53,29 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 | 4      | `XM4`,`XM5`   | Current Mirror PMOS   | W=9.5u, L=1.5u |
 | 5      | `XQ1`to`XQ9`  | NPN HBT               | Nx=1           |
 | 6      | `XR1`         | 5.3k Resistor         | W=0.5u, L=1.7u |
-| 7      | `XR2`         | 15.5k Resistor        | W=0.5u, L=5.1u |
+| 7      | `XR2`         | 15.7k Resistor        | W=0.5u, L=5.1u |
 | 8      | `XR3`         | 2k Resistor           | W=0.5u, L=0.6u |
 
 
 ### Step 1: PMOS Current Mirror
 For Calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
-`Equation2:` $\frac{W}{L}≈\frac{2I_D}{μ_pC_oxV_{OV}^2}​​≈6.34$</br>
+`Equation2:` $\frac{W}{L}≈\frac{2 I_D}{μ_p C_ox V_{ov}^2}​​≈6.34$</br>
 Choosing L=1.5u results in W=9.5u
+
+### Step 2: Startup Circuit
+The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` are WIDE and for `XM2` is LONG. 
+
+### Step 3: NPN HBT
+IHP's npn13G2 with no of emitter Nx=1 are used for components `XQ1` to `XQ9`. 8 HBT's are choosen `XQ2` to `XQ9` for better matching and common centroid layout.
+
+### Step 4: Resistor Value 
+`Equation 3:` $V_T ln(8) = I_E /left(R_1 + /frac{R_3/{β+1} /right)$</br>
+Ignore R<sub>3</sub> component in the equation 3 results in R<sub>1</sub>=5.3kΩ.</br>
+</br>
+`Equation 4:` $V_{BG} = V_{BE1} + I_E (R_1 + 2R_2)$</br>
+For V<sub>BG</sub>=1V and V<sub>BE1</sub>=0.63V, results in R<sub>2</sub>=15.7kΩ.</br>
+</br>
+The parameter sweep of `XR3` reistor with values 2k, 30k and 60k are used in temperature sweep and noise analysis.
 
 ## BGR Netlist
 The netlist `bgr.cir.out` contains the BGR circuit core without stimulus and library in the sub-circuit format. The stimulus, library and result generation are included in respective analysis file.
@@ -106,9 +121,11 @@ Index   tempcoff
 1	2.631005e+01	
 2	5.119615e+01	
 ```
+
 ### DC: Supply Sweep
 A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `XR3` reistor value 2k.
 ![](bgr/simulationPlots/bgr_supply_sweep.svg)
+
 ### NOISE: Noise Analysis
 ![](bgr/simulationPlots/bgr_noise_analysis.svg)
 The parameter sweep of `XR3` reistor with values 2k, 30k and 60k are used in noise analysis. Below are the resultant input and output refered total noise voltage respectively.
@@ -120,8 +137,10 @@ Index   outreftotalnois inreftotalnoise
 1	7.119791e-06	1.215717e-04	
 2	1.057774e-05	1.855346e-04	
 ```
+
 ### TRAN: Transient Analysis
 ![](bgr/simulationPlots/bgr_transient_analysis.svg)
+
 ### MC: Monte-Carlo Analysis
 Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `XR3` reistor value 2k at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
 ![](bgr/simulationPlots/bgr_montecarlo_analysis_plot.svg)
@@ -132,6 +151,7 @@ Before proceeding with simulation instructions, kindly install all the [tools us
 echo $PDK_ROOT
 echo $PDK
 ```
+
 ### STEP1: 
 Open terminal and clone the git repository. Then change the working directory.
 ```
