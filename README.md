@@ -129,7 +129,7 @@ xr3 net2 vbg gnd rhigh w=0.5u l={resL} m=1
 ### DC: Temperature Sweep 
 Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `XR3` reistor value 2kΩ at 1.3V supply.
 ![](bgr/simulationPlots/bgr_temp_sweep.svg)
-The `R3` reistor values 2kΩ, 30kΩ and 60kΩ are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
+The `XR3` reistor values 2kΩ, 30kΩ and 60kΩ are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
 ```
 --------------------------------------------------------------------------------
 Index   tempcoff        
@@ -225,3 +225,5 @@ San Francisco, USA, Feb. 17, 2013. </br>
 Link: https://www.nishanchettri.com/isscc-slides/2013%20ISSCC/TUTORIALS/ISSCC2013Visuals-T9.pdf
 3. Holger Vogt, Giles Atkinson, Paolo Nenzi, "Ngspice User’s Manual Version 45".</br>
 Link: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/45.2/ngspice-45-manual.pdf/download
+4. GitHub Docs.</br>
+Link: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
