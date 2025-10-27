@@ -1,5 +1,5 @@
 # Bandgap-Reference-Circuit
-Bandgap Reference Circuit Design Using IHP 130nm BiCMOS Open Source PDK And eSim
+Bandgap Reference Circuit Design Using IHP 130nm BiCMOS Open Source PDK and eSim
 
 ### eSIM Marathon - Circuit Design & Simulation with IHP SG13G2
 ![](img/eSim_Marathon.png)
@@ -207,13 +207,13 @@ Alternately, simulation plots can be opened manually using a file browser.
 
 ## Comparision
 Comparing this work with [reference 1](#references).
-| Parameter               | Reference      | This work      |
-| :---                    | :---:          | :---:          |
-| Supply Voltage [V]      | 1.1 - 2.5      | 1.3 - 2.5      |
-| Process                 | TSMC 180nm     | IHP 130nm      |
-| Reference Voltage [V]   | 0.9009         | 1.02           |
-| Temperature Range [ºC]  | -20ºC to +85ºC | -20ºC to +85ºC |
-| TC [ppm/ºC]             | 55.23          | 6.85           |
+| Parameter               | Reference          | This work         |
+| :---                    | :---:              | :---:             |
+| Supply Voltage [V]      | 1.1 - 2.5          | 1.3 - 2.5         |
+| Process                 | TSMC 180nm         | IHP 130nm         |
+| Reference Voltage [V]   | 0.9009             | 1.02              |
+| Temperature Range       | -20ºC to +85ºC     | -20ºC to +85ºC    |
+| TC [ppm/ºC]             | 55.23 @1.8V supply | 6.85 @1.3V supply |
 
 ## Conclusion
 The design of the 1V BGR circuit using SiGe-HBT from the IHP 130nm BiCMOS open source PDK operates with a temperature coefficient (TC) of 6.85 ppm/ºC in the temperature range of -20ºC to 85ºC at a 1.3V supply with `XR3` resistor value of 2kΩ. Montecarlo analysis of process variation of 200 samples results in a mean of 1.02 V and a standard deviation of 2 mV.
