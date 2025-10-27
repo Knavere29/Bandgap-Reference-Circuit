@@ -8,6 +8,22 @@ Bandgap Reference Circuit Design Using IHP 130nm BiCMOS Open Source PDK And eSim
   * [Abstract](#abstract)
   * [Tools Used](#tools-used)
   * [BGR Introduction](#bgr-introduction)
+  * [Circuit Schematic in eSim](#circuit-schematic-in-esim)
+  * [Circuit Calculations](#circuit-calculations)
+    * [Component Description](#component-description)
+  * [BGR Netlist](#bgr-netlist)
+  * [Simulations](#simulations)
+    * [DC: Temperature Sweep](#dc:-temperature-sweep)
+    * [DC: Supply Sweep](#dc:-supply-sweep)
+    * [NOISE: Noise Analysis](#noise:-noise-analysis)
+    * [TRAN: Transient Analysis](#tran:-transient-analysis)
+    * [MC: Monte-Carlo Analysis](#mc:-monte-carlo-analysis)
+  * [Simulation Instructions](#simulation-instructions)
+  * [Comparision](#comparision)
+  * [Conclusion](#conclusion)
+  * [Author](#author)
+  * [Acknowledgement](#acknowledgement)
+  * [References](#references)
 
 ## Abstract
 The design of 1V bandgap reference (BGR) circuit using silicon-germanium heterojunction bipolar transistor (SiGe-HBT) from IHP 130nm BiCMOS open source PDK. The circuit operates with temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at 1.3V supply.
@@ -44,7 +60,7 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 ![](img/bgr_kicad_schematic.png)
 
 ## Circuit Calculations
-### Component Description:
+### Component Description
 | Sl No. | Name          | Description           | Values         |
 | :---:  | :---          | :---                  | :---           |
 | 1      | `XM1`         | Startup Circuit PMOS  | W=1u, L=5u     |
@@ -52,9 +68,9 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 | 3      | `XM3`         | Startup Circuit PMOS  | W=4u, L=1u     |
 | 4      | `XM4`,`XM5`   | Current Mirror PMOS   | W=9.5u, L=1.5u |
 | 5      | `XQ1`to`XQ9`  | NPN HBT               | Nx=1           |
-| 6      | `XR1`         | 5.3k Resistor         | W=0.5u, L=1.7u |
-| 7      | `XR2`         | 15.7k Resistor        | W=0.5u, L=5.1u |
-| 8      | `XR3`         | 2k Resistor           | W=0.5u, L=0.6u |
+| 6      | `XR1`         | 5.3kΩ Resistor        | W=0.5u, L=1.7u |
+| 7      | `XR2`         | 15.7kΩ Resistor       | W=0.5u, L=5.1u |
+| 8      | `XR3`         | 2kΩ Resistor          | W=0.5u, L=0.6u |
 
 
 ### Step 1: PMOS Current Mirror
@@ -69,13 +85,13 @@ The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` are WIDE a
 IHP's npn13G2 with no of emitter Nx=1 are used for components `XQ1` to `XQ9`. 8 HBT's are choosen `XQ2` to `XQ9` for better matching and common centroid layout.
 
 ### Step 4: Resistor Value 
-`Equation 3:` $V_T ln(8) = I_E (R_1 + /frac{R_3}/{β+1})$</br>
+`Equation 3:` $V_T ln(8) = I_E (R_1 + /frac{R_3}{β+1})$</br>
 Ignore R<sub>3</sub> component in the equation 3 results in R<sub>1</sub>=5.3kΩ.</br>
 </br>
 `Equation 4:` $V_{BG} = V_{BE1} + I_E (R_1 + 2R_2)$</br>
 For V<sub>BG</sub>=1V and V<sub>BE1</sub>=0.63V, results in R<sub>2</sub>=15.7kΩ.</br>
 </br>
-The parameter sweep of `XR3` reistor with values 2k, 30k and 60k are used in temperature sweep and noise analysis.
+The parameter sweep of `XR3` reistor with values 2kΩ, 30kΩ and 60kΩ are used in temperature sweep and noise analysis.
 
 ## BGR Netlist
 The netlist `bgr.cir.out` contains the BGR circuit core without stimulus and library in the sub-circuit format. The stimulus, library and result generation are included in respective analysis file.
@@ -181,17 +197,18 @@ cd simulationPlots
 
 #### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#step2:)
 
-## Reference Comparision
-| Name                      | Reference      | This design    |
-| :---                      | :---:          | :---:          |
-| `Supply Voltage [V]`      | 1.1 - 2.5      | 1.3 - 2.5      |
-| `Process`                 | TSMC 180nm     | IHP 130nm      |
-| `Reference Voltage [V]`   | 0.9009         | 1.02           |
-| `Temperature Range [ºC]`  | -20ºC to +85ºC | -20ºC to +85ºC |
-| `TC [ppm//ºC]`            | 55.23          | 6.85           |
+## Comparision
+Comparing this work with the [Reference 1](#references).
+| Parameter               | Reference      | This design    |
+| :---                    | :---:          | :---:          |
+| Supply Voltage [V]      | 1.1 - 2.5      | 1.3 - 2.5      |
+| Process                 | TSMC 180nm     | IHP 130nm      |
+| Reference Voltage [V]   | 0.9009         | 1.02           |
+| Temperature Range [ºC]  | -20ºC to +85ºC | -20ºC to +85ºC |
+| TC [ppm/ºC]             | 55.23          | 6.85           |
 
 ## Conclusion
-The design of 1V BGR circuit using SiGe-HBT from IHP 130nm BiCMOS open source PDK operates with temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at 1.3V supply for `XR3` resistor value 2kΩ. Montecarlo analysis of  process variation of 200 samples results in `mean = 1.02V` and `standard deviation = 2mV`.
+The design of 1V BGR circuit using SiGe-HBT from IHP 130nm BiCMOS open source PDK operates with temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at 1.3V supply for `XR3` resistor value 2kΩ. Montecarlo analysis of  process variation of 200 samples results in mean = 1.02V and standard deviation = 2mV.
 
 ## Author
 Nagaraj Venkatesh Reddy </br>
