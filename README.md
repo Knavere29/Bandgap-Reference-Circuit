@@ -13,11 +13,11 @@ Bandgap Reference Circuit Design Using IHP 130nm BiCMOS Open Source PDK And eSim
     * [Component Description](#component-description)
   * [BGR Netlist](#bgr-netlist)
   * [Simulations](#simulations)
-    * [DC: Temperature Sweep](#dc:-temperature-sweep)
-    * [DC: Supply Sweep](#dc:-supply-sweep)
-    * [NOISE: Noise Analysis](#noise:-noise-analysis)
-    * [TRAN: Transient Analysis](#tran:-transient-analysis)
-    * [MC: Monte-Carlo Analysis](#mc:-monte-carlo-analysis)
+    * [DC: Temperature Sweep](#dc-temperature-sweep)
+    * [DC: Supply Sweep](#dc-supply-sweep)
+    * [NOISE: Noise Analysis](#noise-noise-analysis)
+    * [TRAN: Transient Analysis](#tran-transient-analysis)
+    * [MC: Monte-Carlo Analysis](#mc-monte-carlo-analysis)
   * [Simulation Instructions](#simulation-instructions)
   * [Comparision](#comparision)
   * [Conclusion](#conclusion)
@@ -85,7 +85,7 @@ The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` are WIDE a
 IHP's npn13G2 with no of emitter Nx=1 are used for components `XQ1` to `XQ9`. 8 HBT's are choosen `XQ2` to `XQ9` for better matching and common centroid layout.
 
 ### Step 4: Resistor Value 
-`Equation 3:` $V_T ln(8) = I_E (R_1 + /frac{R_3}{β+1})$</br>
+`Equation 3:` $V_T ln(8) = I_E (R_1 + \frac{R_3}{β+1})$</br>
 Ignore R<sub>3</sub> component in the equation 3 results in R<sub>1</sub>=5.3kΩ.</br>
 </br>
 `Equation 4:` $V_{BG} = V_{BE1} + I_E (R_1 + 2R_2)$</br>
@@ -195,7 +195,7 @@ cd simulationPlots
 | 4      | TRANS Analysis  | `ngspice bgr_transient_analysis.cir` | bgr_transient_analysis.svg                             |
 | 5      | MC Analysis     | `octave bgr_montecarlo_plot.m`       |  bgr_montecarlo_analysis_plot.svg                      |
 
-#### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#step2:)
+#### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#step2)
 
 ## Comparision
 Comparing this work with the [Reference 1](#references).
