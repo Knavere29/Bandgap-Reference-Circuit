@@ -26,7 +26,7 @@ Bandgap Reference Circuit Design Using IHP 130nm BiCMOS Open Source PDK And eSim
   * [References](#references)
 
 ## Abstract
-The design of 1V bandgap reference (BGR) circuit using silicon-germanium heterojunction bipolar transistor (SiGe-HBT) from IHP 130nm BiCMOS open source PDK. The circuit operates with temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at 1.3V supply.
+The design of a 1V bandgap reference (BGR) circuit using a silicon-germanium heterojunction bipolar transistor (SiGe-HBT) from the IHP 130nm BiCMOS open source PDK. The circuit operates with a temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at a 1.3V supply.
 
 ## Tools Used
 ### eSim:
@@ -52,7 +52,7 @@ GNU Octave is a scientific programming language for scientific computing and num
 Download Link: https://octave.org/download 
 
 ## BGR Introduction
-Bandgap regerence circuit (BGR) is a voltage reference circuit which generates constant voltage, independent of temperature, supply and process variation. This voltage composed of complementary to absolute temperature (CTAT) and proportional to  absolute temperature (PTAT) voltage and/or current components. Correct proportion of this components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> in the BJT current equation produces CTAT and PTAT voltages respectively.</br>
+Bandgap reference circuit (BGR) is a voltage reference circuit that generates constant voltage, independent of temperature, supply, and process variation. This voltage is composed of complementary to absolute temperature (CTAT) and proportional to absolute temperature (PTAT) voltage and/or current components. Correct proportions of these components produce constant voltage. V<sub>BE</sub> and V<sub>T</sub> component in the BJT current equation produce CTAT and PTAT voltage, respectively. For more information, [reference 2](#references).</br>
 `Equation1:` $V_{BG} = V_{BE} + MV_T$
 ![](img/bgr_plot.png)
 ``Image Source: Reference 2``
@@ -74,16 +74,16 @@ Bandgap regerence circuit (BGR) is a voltage reference circuit which generates c
 
 
 ### Step 1: PMOS Current Mirror
-For Calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
+For calculating PMOS `XM4` and `XM5` W and L values. Considering I<sub>D</sub> = 10uA, V<sub>OV</sub> = 0.15V and μ<sub>p</sub>​C<sub>ox</sub> = 0.14mA/V<sup>2</sup>.</br>
 `Equation2:` </br>
 $$\frac{W}{L}≈\frac{2 I_d}{μ_p C_{ox} V_{ov}^2}​​≈6.34$$ </br>
 Choosing L=1.5u results in W=9.5u
 
 ### Step 2: Startup Circuit
-The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` are WIDE and for `XM2` is LONG. 
+The P-startup circuit is used. Usually the sizing for `XM1` and `XM3` is WIDE, and for `XM2` is LONG. 
 
 ### Step 3: NPN HBT
-IHP's npn13G2 with no of emitter Nx=1 are used for components `XQ1` to `XQ9`. 8 HBT's are choosen `XQ2` to `XQ9` for better matching and common centroid layout.
+IHP's npn13G2 with a number of emitters Nx=1 are used for components `XQ1` to `XQ9`. 8 HBTs are chosen `XQ2` to `XQ9` for better matching and common centroid layout.
 
 ### Step 4: Resistor Value 
 `Equation 3:` $V_T ln(8) = I_E (R_1 + \frac{R_3}{β+1})$</br>
@@ -92,10 +92,10 @@ Ignore R<sub>3</sub> component in the equation 3 results in R<sub>1</sub>=5.3kΩ
 `Equation 4:` $V_{BG} = V_{BE1} + I_E (R_1 + 2R_2)$</br>
 For V<sub>BG</sub>=1V and V<sub>BE1</sub>=0.63V, results in R<sub>2</sub>=15.7kΩ.</br>
 </br>
-The parameter sweep of `XR3` reistor with values 2kΩ, 30kΩ and 60kΩ are used in temperature sweep and noise analysis.
+The parameter sweep of `XR3` resistor with values 2 kΩ, 30 kΩ, and 60 kΩ is used in temperature sweep and noise analysis. For more details, [reference 1](#references). 
 
 ## BGR Netlist
-The netlist `bgr.cir.out` contains the BGR circuit core without stimulus and library in the sub-circuit format. The stimulus, library and result generation are included in respective analysis file.
+The `bgr.cir.out` netlist contains the BGR circuit core without inputs and library. The sub-circuit format being modular makes multiple analyses simpler. The inputs, library, and result generation are included in the analysis file.
 ```
 .subckt bgr vdd vbg gnd
 
@@ -127,9 +127,9 @@ xr3 net2 vbg gnd rhigh w=0.5u l={resL} m=1
 
 ## Simulations
 ### DC: Temperature Sweep 
-Temperature sweep from -20ºC to 85ºC show stable BRG voltage of 1.02V for `XR3` reistor value 2kΩ at 1.3V supply.
+The temperature sweep from -20ºC to 85ºC shows a stable BRG voltage of 1.02V for `XR3` resistor value of 2kΩ at a 1.3V supply.
 ![](bgr/simulationPlots/bgr_temp_sweep.svg)
-The `XR3` reistor values 2kΩ, 30kΩ and 60kΩ are used in the temperature sweep. Below are the resultant temperature coefficient (TC) respectively.
+The `XR3` resistor with value 2kΩ, 30kΩ, and 60kΩ are used in the temperature sweep. Below are the resultant temperature coefficients [ppm/ºC], respectively.
 ```
 --------------------------------------------------------------------------------
 Index   tempcoff        
@@ -140,12 +140,12 @@ Index   tempcoff
 ```
 
 ### DC: Supply Sweep
-A stable BRG voltage of 1.V is observed in supply sweep from 1.3V to 2.5V show for `XR3` reistor value 2kΩ.
+A stable BRG voltage of 1V is observed in a supply sweep ranging from 1.3V to 2.5V for `XR3` resistor value of 2kΩ.
 ![](bgr/simulationPlots/bgr_supply_sweep.svg)
 
 ### NOISE: Noise Analysis
 ![](bgr/simulationPlots/bgr_noise_analysis.svg)
-The parameter sweep of `XR3` reistor with values 2kΩ, 30kΩ and 60kΩ are used in noise analysis. Below are the resultant input and output refered total noise voltage (uV) respectively.
+The parameter sweep of the resistor `XR3` with values 2kΩ, 30kΩ, and 60kΩ is used in noise analysis. Below are the resultant input and output referred total noise voltage [V], respectively.
 ```
 --------------------------------------------------------------------------------
 Index   outreftotalnois inreftotalnoise 
@@ -159,25 +159,25 @@ Index   outreftotalnois inreftotalnoise
 ![](bgr/simulationPlots/bgr_transient_analysis.svg)
 
 ### MC: Monte-Carlo Analysis
-Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `XR3` reistor value 2kΩ at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving result.
+Montecarlo analysis of 200 samples with process variation results in `mean = 1.02V` and `standard deviation = 2mV` for `XR3` resistor value 2kΩ at 1.3V supply. This analysis uses [GNU Octave](#gnu-octave) for saving results.
 ![](bgr/simulationPlots/bgr_montecarlo_analysis_plot.svg)
 
 ## Simulation Instructions
-Before proceeding with simulation instructions, kindly install all the [tools used](#tools-used). Also check the `$PDK_ROOT` and `$PDK` path variable. If not set, do so.
+The Ubuntu operating system is used. Before proceeding with simulation instructions, kindly install all the [tools used](#tools-used). Also check the `$PDK_ROOT` and `$PDK` path variables by running the below commands in the terminal.
 ```
 echo $PDK_ROOT
 echo $PDK
 ```
-
+The variables are set during the IHP open PDK installation steps. Proceed further if the tool installation and path variable checking are successful.
 ### STEP1: 
-Open terminal and clone the git repository. Then change the working directory.
+Open the terminal and clone the git repository. Then change the working directory.
 ```
 git clone https://github.com/Knavere29/Bandgap-Reference-Circuit.git
-cd Bandgap-Reference-Circuit
+cd Bandgap-Reference-Circuit/bgr
 ```
 
 ### STEP2:
-Run allSimRun.sh script in terminal. The script runs all the simulation one by one.
+Run the `allSimRun.sh` script in the terminal. The script runs all the simulations one by one.
 ```
 ./allSimRun.sh 
 ```
@@ -186,7 +186,14 @@ Run allSimRun.sh script in terminal. The script runs all the simulation one by o
 Change directory to simulationPlots to see the result files (simulation plots).
 ```
 cd simulationPlots
+xdg-open bgr_temp_sweep.svg
+xdg-open bgr_supply_sweep.svg
+xdg-open bgr_noise_analysis.svg
+xdg-open bgr_transient_analysis.svg
+xdg-open bgr_montecarlo_analysis_plot.svg
 ```
+Alternately, simulation plots can be opened manually using a file browser.
+
 ### Simulation Results:
 | Sl No. | Analysis Type   | Command                              | Result files                                           |
 | :---:  | :---            | :---                                 | :---                                                   |
@@ -199,8 +206,8 @@ cd simulationPlots
 #### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#step2)
 
 ## Comparision
-Comparing this work with the [Reference 1](#references).
-| Parameter               | Reference      | This design    |
+Comparing this work with [reference 1](#references).
+| Parameter               | Reference      | This work      |
 | :---                    | :---:          | :---:          |
 | Supply Voltage [V]      | 1.1 - 2.5      | 1.3 - 2.5      |
 | Process                 | TSMC 180nm     | IHP 130nm      |
@@ -209,14 +216,14 @@ Comparing this work with the [Reference 1](#references).
 | TC [ppm/ºC]             | 55.23          | 6.85           |
 
 ## Conclusion
-The design of 1V BGR circuit using SiGe-HBT from IHP 130nm BiCMOS open source PDK operates with temperature coefficient (TC) of 6.85ppm/ºC in the temperature range of -20ºC to 85ºC at 1.3V supply for `XR3` resistor value 2kΩ. Montecarlo analysis of  process variation of 200 samples results in mean = 1.02V and standard deviation = 2mV.
+The design of the 1V BGR circuit using SiGe-HBT from the IHP 130nm BiCMOS open source PDK operates with a temperature coefficient (TC) of 6.85 ppm/ºC in the temperature range of -20ºC to 85ºC at a 1.3V supply with `XR3` resistor value of 2kΩ. Montecarlo analysis of process variation of 200 samples results in a mean of 1.02 V and a standard deviation of 2 mV.
 
 ## Author
 Nagaraj Venkatesh Reddy </br>
 Contact: nagarajvreddy29@gmail.com
 
 ## Acknowledgement
-I would like to express my gratitude to the organizers of the eSim Marathon, eSim team and the IHP team for providing this opportunity and support.
+I would like to express my gratitude to the organizers of the eSim Marathon, the eSim team, and the IHP team for providing this opportunity and support.
 
 ## References
 1. J. M. Loché, A. Abarca, T. Darós, R. Wrege, C. Marques and J. Piteira, "A Low-Noise and Small-Area 0.9 V Bandgap Reference in Standard 180 nm CMOS Process for Neural Applications," 2025 IEEE 16th Latin America Symposium on Circuits and Systems (LASCAS), Bento Gonçalves, Brazil, 2025, pp. 1-5, doi: 10.1109/LASCAS64004.2025.10966327.
