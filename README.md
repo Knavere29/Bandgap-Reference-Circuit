@@ -203,7 +203,7 @@ Alternately, simulation plots can be opened manually using a file browser.
 | 4      | TRANS Analysis  | `ngspice bgr_transient_analysis.cir` | bgr_transient_analysis.svg                             |
 | 5      | MC Analysis     | `octave bgr_montecarlo_plot.m`       |  bgr_montecarlo_analysis_plot.svg                      |
 
-#### NOTE: Individual simulations are possible by running commands in above table in terminal during [STEP 2](#step2)
+#### NOTE: Individual simulations are possible by running commands in the above table in the terminal instead of [STEP 2](#step2)
 
 ## Comparision
 Comparing this work with [reference 1](#references).
